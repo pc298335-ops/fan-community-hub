@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FanCircle | Community</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2b;
+      --panel-soft: #1a2438;
+      --primary: #7c5cff;
+      --primary-soft: #9a7dff;
+      --accent: #32d4a2;
+      --text: #ebefff;
+      --muted: #aab8d5;
+      --danger: #ff5c7a;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 45px rgba(0,0,0,0.32);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: radial-gradient(circle at top, #17243d 0%, var(--bg) 38%);
+      color: var(--text);
+      min-height: 100%;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .app-shell {
+      width: min(1200px, 100%);
+      min-height: 780px;
+      background: rgba(10, 16, 28, 0.88);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+    }
+
+    .brand-panel {
+      background:
+        linear-gradient(135deg, rgba(124,92,255,0.35), rgba(50,212,162,0.2)),
+        #0e1526;
+      padding: 42px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--border);
+    }
+
+    .brand-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      color: var(--text);
+    }
+
+    .brand-badge-mark {
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      box-shadow: 0 0 14px rgba(124, 92, 255, 0.8);
+    }
+
+    .mini-tag {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.74rem;
+    }
+
+    .hero-copy {
+      margin-top: 48px;
+      max-width: 540px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-copy p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-top: 18px;
+      max-width: 480px;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+      color: white;
+      box-shadow: 0 12px 24px rgba(124, 92, 255, 0.35);
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 42px;
+      max-width: 520px;
+    }
+
+    .stat {
+      padding: 18px 16px;
+      background: rgba(15, 23, 37, 0.42);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .brand-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid rgba(9, 14, 24, 0.8);
+      background: linear-gradient(135deg, #ffd166, #f6f7fb);
+      margin-left: -8px;
+    }
+
+    .avatar:first-child { margin-left: 0; }
+    .avatar:nth-child(2) { background: linear-gradient(135deg, #7bdff2, #4cc9f0); }
+    .avatar:nth-child(3) { background: linear-gradient(135deg, #ff8fab, #ff6b6b); }
+
+    .login-panel {
+      background: rgba(14, 21, 34, 0.8);
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(20, 29, 45, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px 22px 20px;
+    }
+
+    .login-card h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      letter-spacing: -0.05em;
+    }
+
+    .login-card .subtext {
+      margin: 0 0 26px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.96rem;
+    }
+
+    .social-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .social-btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin: 18px 0 20px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 14px 14px;
+      font-size: 0.96rem;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: rgba(124, 92, 255, 0.9);
+      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.15);
+    }
+
+    .row-inline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 6px 0 18px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .remember {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .remember input {
+      width: auto;
+      accent-color: var(--primary);
+    }
+
+    .forgot {
+      color: #dfe3ff;
+      text-decoration: none;
+    }
+
+    .main-login-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+      color: white;
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(124, 92, 255, 0.28);
+    }
+
+    .signup-line {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 18px;
+      font-size: 0.9rem;
+    }
+
+    .signup-line a {
+      font-weight: 700;
+      color: #eef1ff;
+    }
+
+    @media (max-width: 920px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    @media (max-width: 540px) {
+      body {
+        padding: 16px;
+      }
+
+      .brand-panel,
+      .login-panel {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .social-row {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <section class="brand-panel">
+      <div class="brand-top">
+        <div class="brand-badge">
+          <span class="brand-badge-mark"></span>
+          FanCircle
+        </div>
+        <span class="mini-tag">Live community</span>
+      </div>
+
+      <div class="hero-copy">
+        <span class="eyebrow">For creators & fans</span>
+        <h1>Text with your fans. Share ideas. Grow together.</h1>
+        <p>
+          Build a private, energetic space where your audience can message you,
+          vote on concepts, and help shape your next big idea in real time.
+        </p>
+
+        <div class="cta-row">
+          <button class="primary-btn">Start creating</button>
+          <button class="secondary-btn">Watch demo</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>24k</strong>
+            <span>Fans online</span>
+          </div>
+          <div class="stat">
+            <strong>1.8k</strong>
+            <span>Ideas shared</span>
+          </div>
+          <div class="stat">
+            <strong>96%</strong>
+            <span>Engagement</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="brand-footer">
+        <div class="avatars" aria-label="Member avatars">
+          <span class="avatar"></span>
+          <span class="avatar"></span>
+          <span class="avatar"></span>
+        </div>
+        <span>Trusted by creators worldwide</span>
+      </div>
+    </section>
+
+    <section class="login-panel">
+      <div class="login-card">
+        <h2>Welcome back</h2>
+        <p class="subtext">Sign in to continue the conversation with your community.</p>
+
+        <div class="social-row">
+          <button class="social-btn">Google</button>
+          <button class="social-btn">Apple</button>
+        </div>
+
+        <div class="divider">or continue with email</div>
+
+        <form>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" />
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="••••••••" />
+          </div>
+
+          <div class="row-inline">
+            <label class="remember">
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </label>
+            <a class="forgot" href="#">Forgot password?</a>
+          </div>
+
+          <button class="main-login-btn" type="submit">Log in</button>
+        </form>
+
+        <div class="signup-line">
+          Don’t have an account? <a href="#">Create one</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
